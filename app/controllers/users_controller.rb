@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
         redirect_to("/", { :notice => "Welcome Back " + user.username + "!"})
       else
-        redirect_to("/user_sign_in", { :alert => "Nice try, sucker!"})
+        redirect_to("/user_sign_in", { :alert => "Nice try, sucker!!"})
       end
     end
   end
