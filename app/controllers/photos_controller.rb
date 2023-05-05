@@ -31,12 +31,20 @@ class PhotosController < ApplicationController
   end
 
   def update
+    user_id = session.fetch(:user_id)
     id = params.fetch("the_photo_id")
     photo = Photo.where({ :id => id }).at(0)
-    photo.caption = params.fetch("input_caption")
-    photo.image = params.fetch("input_image")
-    photo.save
+    poster_id = photo.owner_id
+    if user_id == poster_id
+      id = params.fetch("the_photo_id")
+      photo = Photo.where({ :id => id }).at(0)
+      photo.caption = params.fetch("input_caption")
+      photo.image = params.fetch("input_image")
+      photo.save
 
-    redirect_to("/photos/#{photo.id}")
+      redirect_to("/photos/#{photo.id}")
+    else
+      redirect_to("/photos/#{photo.id}")
+    end
   end
 end
